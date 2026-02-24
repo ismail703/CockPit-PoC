@@ -1,0 +1,240 @@
+[
+    {
+        "table_name": "bda_parc",
+        "columns": [
+            {
+                "column_name": "segment",
+                "values": [
+                    "B2C", 
+                    "B2B"
+                ]
+            },
+            {
+                "column_name": "split",
+                "values": [
+                    "MOBILE POSTPAID", 
+                    "ADSL", 
+                    "PREPAID", 
+                    "FTTH", 
+                    "MOBILE", 
+                    "IDAR 5G", 
+                    "IDAR"
+                ]
+            },
+            {
+                "column_name": "kpi",
+                "values": [
+                    "EOP MOBILE", 
+                    "EOP HOME"
+                ]
+            }
+        ]
+    },
+    {
+        "table_name": "bda_recharge",
+        "columns": [
+            {
+                "column_name": "segment",
+                "values": [
+                    "ALL"
+                ]
+            },
+            {
+                "column_name": "split",
+                "values": [
+                    "*3",
+                    "*1",
+                    "Autre",
+                    "*2",
+                    "*6",
+                    "Electronique",
+                    "Scratch Card",
+                    "Dealer",
+                    "0-9",
+                    ">= 100",
+                    "10-19",
+                    "20-49",
+                    "50-99"
+                ]
+            },
+            {
+                "column_name": "kpi",
+                "values": [
+                    "RECHARGE GLOBALE",
+                    "RECHARGE PAR TYPE",
+                    "RECHARGE PAR CANAL",
+                    "RECHARGE PAR TRANCHE",
+                    "RECHARGEUR GLOBAL",
+                    "RECHARGEUR PAR TYPE"
+                ]
+            }
+        ]
+    },
+    {
+        "table_name": "bda_revenu_billing",
+        "columns": [
+            {
+                "column_name": "segment",
+                "values": [
+                    "B2C", 
+                    "B2B"
+                ]
+            },
+            {
+                "column_name": "split",
+                "values": [
+                    "OTEO",
+                    "FTTH",
+                    "WIN",
+                    "IDAR",
+                    "FLEXI",
+                    "ADSL",
+                    "B2C MOBILE",
+                    "WHOLESALE",
+                    "B2B",
+                    "IDAR 5G"
+                ]
+            },
+            {
+                "column_name": "kpi",
+                "values": [
+                    "REVENU BILLING"
+                ]
+            }
+        ]
+    },
+    {
+      "table_name": "bda_activations",
+      "columns": [
+        {
+          "column_name": "segment",
+          "values": [
+            "ADSL",
+            "B2B",
+            "B2C POSTPAID",
+            "B2C PREPAID",
+            "FLEXI",
+            "FTTH",
+            "IDAR 4G",
+            "IDAR 5G",
+            "WIN"
+          ]
+        },
+        {
+          "column_name": "split",
+          "values": [
+            "ADSL",
+            "Autres",
+            "B2B",
+            "FTTH",
+            "GOCOM",
+            "IWACO",
+            "MRE",
+            "SAHATEL",
+            "TENOR",
+            "VI",
+            "VS"
+          ]
+        },
+        {
+          "column_name": "kpi",
+          "values": [
+            "GAS B2B",
+            "GAS CPE",
+            "GAS CPR",
+            "GAS CRM",
+            "GAS HOME",
+            "GAS POSTPAID",
+            "GAS PREP PAR CANAL",
+            "GAS PREP PAR TYPE"
+          ]
+        }
+      ]
+    },
+    {
+      "table_name": "bda_encaissement",
+      "columns": [
+        {
+          "column_name": "segment",
+          "values": ["B2C", "WIN", "B2B", "FLEXI"]
+        },
+        {
+          "column_name": "split",
+          "values": [
+            "IDAR",
+            "ADSL",
+            "MOBILE",
+            "FTTH",
+            "MULTI",
+            "MTC",
+            "INWI DISTRIB",
+            "M2T",
+            "DISTRIBUTEUR",
+            "AUTRE",
+            "WMN",
+            "EBANKING",
+            "WHOLESALE",
+            "B2B"
+          ]
+        },
+        {
+          "column_name": "kpi",
+          "values": [
+            "ENCAISSEMENT B2C PAR OFFRE",
+            "ENCAISSEMENT B2C PAR CANAL",
+            "ENCAISSEMENT",
+            "TAUX ENCAISSEMENT"
+          ]
+        }
+      ]
+    },
+    {
+      "table_name": "bda_ftth_delai_raccordement",
+      "columns": [
+        {
+          "column_name": "segment",
+          "values": ["FTTH MIGRATION", "FTTH ACQUISITION", "FTTH"]
+        },
+        {
+          "column_name": "split",
+          "values": ["> 2J", "<= 1J", "1J - 2J"]
+        },
+        {
+          "column_name": "kpi",
+          "values": [
+            "DELAIS RACCORDEMENTS PROPRE",
+            "DELAIS RACCORDEMENTS VULA",
+            "DELAIS MOYEN RACCORDEMENTS PROPRE",
+            "DELAIS MOYEN RACCORDEMENTS VULA"
+          ]
+        }
+      ]
+    },
+    {
+      "table_name": "bda_ftth_reclamations",
+      "columns": [
+        {
+          "column_name": "segment",
+          "values": ["FTTH"]
+        },
+        {
+          "column_name": "split",
+          "values": [
+            "Standby",
+            "4H - 24H",
+            "24H - 48H",
+            "<= 4H",
+            "> 48H",
+            "Annule",
+            "Ouvert",
+            "Escalade",
+            "Resolu"
+          ]
+        },
+        {
+          "column_name": "kpi",
+          "values": ["RECLAMATIONS FTTH", "DELAIS RESOLUTION FTTH"]
+        }
+      ]
+    }    
+]

@@ -1,0 +1,359 @@
+[
+    {
+        "table_name": "bda_activations",
+        "description": "This table contains data on New Customer Acquisitions, capturing every subscription as soon as it becomes active on the network.",
+        "columns": [
+            {
+                "column_name": "id_date",
+                "description": "Full calendar date (YYYY-MM-DD hh-mm-ss format)",
+                "datatype": "datetime"
+            },
+            {
+                "column_name": "id_day",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_week",
+                "description": "Day of the month (numeric value from 1 to 31)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_month",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "valeur_d1",
+                "description": "Represents the actual observed value for the specific KPI. The unit of measure is dynamic and determined by the KPI definition (e.g., amount, volume, or headcount).",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_year",
+                "description": "Year extracted from the date (4-digit format, e.g., 2026)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "segment",
+                "description": "The Segment column defines the broad category or profile of the customer",
+                "datatype": "string"
+            },
+            {
+                "column_name": "split",
+                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "datatype": "string"
+            },
+            {
+                "column_name": "kpi",
+                "description": "KPI Names",
+                "datatype": "string"
+            }
+        ]
+    },
+    {
+        "table_name": "bda_encaissement",
+        "description": "Records of customer payments",
+        "columns": [
+            {
+                "column_name": "id_date",
+                "description": "Full calendar date (YYYY-MM-DD hh-mm-ss format)",
+                "datatype": "datetime"
+            },
+            {
+                "column_name": "id_day",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_week",
+                "description": "Day of the month (numeric value from 1 to 31)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_month",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "valeur_d1",
+                "description": "Represents the actual observed value for the specific KPI. The unit of measure is dynamic and determined by the KPI definition (e.g., amount, volume, or headcount).",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_year",
+                "description": "Year extracted from the date (4-digit format, e.g., 2026)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "segment",
+                "description": "The Segment column defines the broad category or profile of the customer",
+                "datatype": "string"
+            },
+            {
+                "column_name": "split",
+                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "datatype": "string"
+            },
+            {
+                "column_name": "kpi",
+                "description": "KPI Names",
+                "datatype": "string"
+            }
+        ]
+    },
+    {
+        "table_name": "bda_ftth_delai_raccordement",
+        "description": "Tracks the time taken to connect a customer to the FTTH network",
+        "columns": [
+            {
+                "column_name": "id_date",
+                "description": "Full calendar date (YYYY-MM-DD hh-mm-ss format)",
+                "datatype": "datetime"
+            },
+            {
+                "column_name": "id_day",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_week",
+                "description": "Day of the month (numeric value from 1 to 31)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_month",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "valeur_d1",
+                "description": "Represents the actual observed value for the specific KPI. The unit of measure is dynamic and determined by the KPI definition (e.g., amount, volume, or headcount).",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_year",
+                "description": "Year extracted from the date (4-digit format, e.g., 2026)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "segment",
+                "description": "The Segment column defines the broad category or profile of the customer",
+                "datatype": "string"
+            },
+            {
+                "column_name": "split",
+                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "datatype": "string"
+            },
+            {
+                "column_name": "kpi",
+                "description": "KPI Names",
+                "datatype": "string"
+            }
+        ]
+    },
+    {
+        "table_name": "bda_ftth_reclamations",
+        "description": "Records of FTTH-related customer complaints, including, date, status and resolution Delay",
+        "columns": [
+            {
+                "column_name": "id_date",
+                "description": "Full calendar date (YYYY-MM-DD hh-mm-ss format)",
+                "datatype": "datetime"
+            },
+            {
+                "column_name": "id_day",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_week",
+                "description": "Day of the month (numeric value from 1 to 31)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_month",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "valeur_d1",
+                "description": "Represents the actual observed value for the specific KPI. The unit of measure is dynamic and determined by the KPI definition (e.g., amount, volume, or headcount).",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_year",
+                "description": "Year extracted from the date (4-digit format, e.g., 2026)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "segment",
+                "description": "The Segment column defines the broad category or profile of the customer",
+                "datatype": "string"
+            },
+            {
+                "column_name": "split",
+                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "datatype": "string"
+            },
+            {
+                "column_name": "kpi",
+                "description": "KPI Names",
+                "datatype": "string"
+            }
+        ]
+    },
+    {
+        "table_name": "bda_parc",
+        "description": "Records the total number of active customers at the end of the period, for both mobile and home services.",
+        "columns": [
+            {
+                "column_name": "id_date",
+                "description": "Full calendar date (YYYY-MM-DD hh-mm-ss format)",
+                "datatype": "datetime"
+            },
+            {
+                "column_name": "id_day",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_week",
+                "description": "Day of the month (numeric value from 1 to 31)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_month",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "valeur_d1",
+                "description": "Represents the actual observed value for the specific KPI. The unit of measure is dynamic and determined by the KPI definition (e.g., amount, volume, or headcount).",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_year",
+                "description": "Year extracted from the date (4-digit format, e.g., 2026)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "segment",
+                "description": "The Segment column defines the broad category or profile of the customer",
+                "datatype": "string"
+            },
+            {
+                "column_name": "split",
+                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "datatype": "string"
+            },
+            {
+                "column_name": "kpi",
+                "description": "KPI Names",
+                "datatype": "string"
+            }
+        ]
+    },
+    {
+        "table_name": "bda_recharge",
+        "description": "Tracks all customer top-up activity. It records the revenue generated (excluding tax), the date of the transaction, and the sales channel used (such as Tenor or Sahatel)",
+        "columns": [
+            {
+                "column_name": "id_date",
+                "description": "Full calendar date (YYYY-MM-DD hh-mm-ss format)",
+                "datatype": "datetime"
+            },
+            {
+                "column_name": "id_day",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_week",
+                "description": "Day of the month (numeric value from 1 to 31)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_month",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "valeur_d1",
+                "description": "Represents the actual observed value for the specific KPI. The unit of measure is dynamic and determined by the KPI definition (e.g., amount, volume, or headcount).",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_year",
+                "description": "Year extracted from the date (4-digit format, e.g., 2026)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "segment",
+                "description": "The Segment column defines the broad category or profile of the customer",
+                "datatype": "string"
+            },
+            {
+                "column_name": "split",
+                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "datatype": "string"
+            },
+            {
+                "column_name": "kpi",
+                "description": "KPI Names",
+                "datatype": "string"
+            }
+        ]
+    },
+    {
+        "table_name": "bda_revenu_billing",
+        "description": "This table stores monthly billing data (Billed Revenue). It tracks the total revenue (excluding VAT) generated by subscriptions and usage, categorized by Segment (B2C, B2B) and Technology or offer (Fiber, ADSL, Mobile)",
+        "columns": [
+            {
+                "column_name": "id_date",
+                "description": "Full calendar date (YYYY-MM-DD hh-mm-ss format)",
+                "datatype": "datetime"
+            },
+            {
+                "column_name": "id_day",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_week",
+                "description": "Day of the month (numeric value from 1 to 31)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_month",
+                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "valeur_d1",
+                "description": "Represents the actual observed value for the specific KPI. The unit of measure is dynamic and determined by the KPI definition (e.g., amount, volume, or headcount).",
+                "datatype": "int"
+            },
+            {
+                "column_name": "id_year",
+                "description": "Year extracted from the date (4-digit format, e.g., 2026)",
+                "datatype": "int"
+            },
+            {
+                "column_name": "segment",
+                "description": "The Segment column defines the broad category or profile of the customer",
+                "datatype": "string"
+            },
+            {
+                "column_name": "split",
+                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "datatype": "string"
+            },
+            {
+                "column_name": "kpi",
+                "description": "KPI Names",
+                "datatype": "string"
+            }
+        ]
+    }
+]
