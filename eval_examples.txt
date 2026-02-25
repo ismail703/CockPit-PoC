@@ -1,0 +1,40 @@
+1. What is the total number of new B2B customers by year and segment?
+=> SELECT id_year, segment, sum(valeur_d1) FROM bda_activations where segment ='B2B' GROUP BY 1,2;
+=====================================
+2. What is the total number of active B2C customers for the FTTH offer in December 2025?
+=> SELECT SUM(valeur_d1) 
+   FROM bda_parc 
+   WHERE id_year = 2025 
+   AND id_month = 12 
+   AND segment = 'B2C' 
+   AND split = 'FTTH'
+   AND kpi = 'EOP HOME';
+=====================================
+3. What is the total Month-to-Date (MTD) amount of recharges of type *6?
+=> SELECT SUM(valeur_d1) 
+   FROM bda_recharge 
+   WHERE id_date >= '25/01/2026 00:00' 
+   AND id_date < '25/02/2026 00:00'  
+   AND split = '*6'
+   AND kpi = 'RECHARGE PAR TYPE';
+=======================================
+4. What is the total number of new customers for the Home offer ?
+SELECT id_year, segment, sum(valeur_d1) FROM bda_activations where kpi ='GAS HOME' group by 1,2,3;
+=====================================
+5. What is the total amount for each recharge type ?
+SELECT id_year, split, sum(valeur_d1)  FROM bda_recharge where kpi ='RECHARGE PAR TYPE' group by 1,2;
+====================================
+6. What is the total amount for each recharge channel ?
+SELECT id_year, split, sum(valeur_d1)  FROM bda_recharge where kpi ='RECHARGE PAR CANAL';
+=====================================
+7. What is the total amount for each recharge tranche?
+SELECT id_year, split, sum(valeur_d1)  FROM bda_recharge where kpi ='RECHARGE PAR TRANCHE' group by 1,2;
+====================================
+8. Give me the total Revenu of each split of B2C and B2B
+SELECT id_year, split, segment, sum(valeur_d1) FROM bda_revenu_billing  GROUP BY 1,2,3;
+=====================================
+9. What the total encaissement for each segment ?
+SELECT id_year, segment, sum(valeur_d1) FROM bda_encaissement where kpi ='ENCAISSEMENT' GROUP BY 1,2;
+======================================
+10. What is the total B2C encaissement broken down by offer?
+SELECT id_year, segment, sum(valeur_d1) FROM bda_encaissement where kpi ='ENCAISSEMENT B2C PAR OFFRE' GROUP BY 1,2
