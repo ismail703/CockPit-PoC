@@ -71,7 +71,7 @@
   "RECHARGEUR GLOBAL: Nombre de rechargeurs global enregistré sur les differentes offres INWI",
   "RECHARGEUR GLOBAL: Total number of unique rechargers recorded across the various INWI offers.",
   "RECHARGEUR PAR TYPE: Nombre de rechargeurs enregistré sur les differentes offres INWI et ventilé par etoile/type de la recharge : *1 pour la voix nationale, *2 pour le pay as you go, *3 pour la Data et *6 pour les reseaux sociaux illimités",
-  "RECHARGEUR PAR TYPE: Number of unique rechargers recorded across various INWI offers, broken down by top-up type (Star code): *1 for National Voice, *2 for Pay-As-You-Go, *3 for Data, and *6 for Unlimited Social Media.",
+  "RECHARGEUR PAR TYPE: Number of unique rechargers recorded (performed by customers) across various INWI offers, broken down by top-up type (Star code): *1 for National Voice, *2 for Pay-As-You-Go, *3 for Data, and *6 for Unlimited Social Media.",
   "REVENU BILLING: Le revenu facturé HT enregistrés sur les differentes offres B2B, OTEO et wholesale.",
   "REVENU BILLING: Net Billed Revenue (excluding VAT) recorded across various B2B, OTEO, and Wholesale offers.",
   "Otéo est une filiale de Wana Corporate qui offre des services télécoms aux entreprises installées à Casanearshore et Technopolis, deux zones offshore de excellence au Maroc",
@@ -80,6 +80,5 @@
   "CHURN: Churn is the metric that tracks when a customer '\"leaves\" the operator.",
   "In the postpaid segment, churn is recognized at the point of contract closure, encompassing both customer-led attrition and credit-related deactivations.",
   "Prepaid churn is a behavioral metric governed by ANRT, which defines an active customer as one who generates revenue (call, SMS, data, or recharge) within a 90-day window. If a SIM card remains inactive for more than three months, it is legally classified as \"churned\". This periodic purging often leads to sharp YTD subscriber dips, representing the removal of \"ghost\" lines rather than a real-time loss of active users."
-
 ]
 

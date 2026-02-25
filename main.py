@@ -4,14 +4,18 @@ from typing import Annotated, TypedDict, Dict, Any, List, Literal
 from pydantic import BaseModel, Field
 import json
 import os
+from dotenv import load_dotenv
 
 # LangChain / LangGraph Imports
 from langgraph.graph import StateGraph, END, START  
 from langchain_ollama import ChatOllama
+from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_core.prompts import ChatPromptTemplate
 import chromadb
 from chromadb.utils import embedding_functions
+
 
 # ==========================================
 # 1. SETUP & CONFIGURATION
@@ -22,9 +26,44 @@ CHROMA_PATH = "./chroma_db_store"
 MODEL_NAME = "granite3.2:2b"
 QWEN_MODEL = "qwen3:1.7b"
 
+load_dotenv()
+api_key = os.getenv("GROQ_API_KEY")
+
 # Initialize LLM
-llm = ChatOllama(model=MODEL_NAME, temperature=0)
-qwen = ChatOllama(model=QWEN_MODEL, temperature=0)
+# llm = ChatOpenAI(
+#     model="meta-llama/llama-3.3-70b-instruct:free",
+#     openai_api_key=api_key,
+#     openai_api_base="https://openrouter.ai/api/v1",
+#     default_headers={
+#         "HTTP-Referer": "http://localhost:3000",
+#         "X-Title": "llama",
+#     }
+# )
+
+# qwen = ChatOpenAI(
+#     model="qwen/qwen3-next-80b-a3b-instruct:free",
+#     openai_api_key=api_key,
+#     openai_api_base="https://openrouter.ai/api/v1",
+#     default_headers={
+#         "HTTP-Referer": "http://localhost:3000",
+#         "X-Title": "qwen",
+#     }
+# )
+
+llm = ChatGroq(
+    model="openai/gpt-oss-120b",
+    groq_api_key=api_key,
+    temperature=0, 
+)
+
+qwen = ChatGroq(
+    model="qwen/qwen3-32b",
+    groq_api_key=api_key,
+    temperature=0, 
+)
+
+# llm = ChatOllama(model=MODEL_NAME, temperature=0)
+# qwen = ChatOllama(model=QWEN_MODEL, temperature=0)
 
 # Initialize ChromaDB Client
 client = chromadb.PersistentClient(path=CHROMA_PATH)
@@ -37,6 +76,7 @@ ollama_ef = embedding_functions.OllamaEmbeddingFunction(
 coll_schema = client.get_collection("telco_db_schema", embedding_function=ollama_ef)
 coll_evidence = client.get_collection("telco_domain_evidence", embedding_function=ollama_ef)
 coll_values = client.get_collection("telco_distinct_values", embedding_function=ollama_ef)
+coll_examples = client.get_collection("sql_few_shot_examples", embedding_function=ollama_ef)
 
 # ==========================================
 # 2. DEFINE STATE & MODELS
@@ -44,9 +84,10 @@ coll_values = client.get_collection("telco_distinct_values", embedding_function=
 
 class VectorDBQueries(BaseModel):
     """Output model for generating targeted queries for each Vector DB"""
-    schema_query: List[str] = Field(description="Query to find similar SQL patterns (e.g., 'how to count users')")
-    knowledge_query: List[str] = Field(description="Query for domain rules (e.g., 'what is a churned user')")
-    value_query: List[str] = Field(description="Query for specific data values (e.g., 'Postpaid', 'iPhone 15')")
+    schema_query: List[str] = Field(description="List of queries to find similar SQL patterns")
+    knowledge_query: List[str] = Field(description="List of queries for domain rules")
+    value_query: List[str] = Field(description="List of queries for specific data values")
+    example_query: List[str] = Field(description="List of queries to find similar SQL patterns")
 
 class SemanticCheckResult(BaseModel): 
     reasoning: str = Field(description="Explanation of why the SQL is correct or incorrect based on the user question.") 
@@ -84,13 +125,14 @@ def generate_vect_db_query(state: AgentState):
         - schema_query 
         - knowledge_query
         - value_query
+        - example_query
 
       1. Schema Query:
         Goal: Identify relevant tables and columns identifiers for Schema Alignment.
         Action: 
             Extract nouns that look like database objects (e.g., "active customer", "bill", "Recharge", "data"). 
             Identify entities that would logically represent a table or a specific column name in a telecom database.
-
+            Extract words that can be used to describe the table
 
       2. Knowledge Query
         Goal: Retrieve business definitions, exact KPI names, and Evidence/Logic documentation.
@@ -98,24 +140,37 @@ def generate_vect_db_query(state: AgentState):
             Extract domain-specific terms, telecom KPIs, traffic types, or financial metrics.
             Focus on technical and business descriptors that clarify underlying logic (e.g., how "Churn" is calculated or what "National Mobile IAM" includes).
 
-
       3. Value Query
         Goal: Retrieve exact Data Vocabulary and string matches for categorical filters.
         Action:
             Extract proper nouns, capitalized words, offer names, plan names, product names, or alphanumeric identifiers.
             The goal is to prevent syntax errors by finding the exact DISTINCT value present in the database.
 
+      4. Example Query
+        Goal: Retrieve similar SQL templates for few-shot learning.
+        Action: 
+          Rewrite the user’s question so it can be used to fetch similar SQL queries by comparing it to existing questions.
+          Do not write any SQL query or SQL Syntax
+   
     FALLBACK RULE (MANDATORY):
     If a query type is not applicable, you must return the original user question for that field.
     Do not return empty strings.
     Do not return "None".
     Do not omit any field.
 
-    EXAMPLE:
+    EXAMPLES:
+
     USER QUESTION: Calculate the total count of recharges categorized as type '*3' performed during January 2024
     knowledge_query: ["type of recharge", "*3"]
     schema_query: ["recharge"]
     evidence_query: ["recharge types", "*3", "recharges", "recharge type *3 definition"] 
+    example_query: ["the total count of recharges of type '*3' performed during January 2024"]
+
+    USER QUESTION: What is the total number of active B2C customers on the iDar offer at the end of January 2026?
+    schema_query: ["active B2C customers", "active customers", "customers"]
+    knowledge_query: ["active B2C customers", iDar, B2C, "active customers at the end of January 2026", "the total number of active B2C customers on the iDar offer at the end of January 2026"]
+    evidence_query: ["iDar", "B2C", "active customers"] 
+    example_query: ["total number of active customers on the iDar offer", ]
 
     Always return all three fields to ensure 100% vocabulary alignment for the downstream LLM.
     """
@@ -128,12 +183,14 @@ def generate_vect_db_query(state: AgentState):
     print("schema: ", queries_object.schema_query)
     print("evidence: ", queries_object.knowledge_query)
     print("value: ", queries_object.value_query)
+    print("example: ", queries_object.example_query)
 
     return {
         "vect_queries": {
             "schema": queries_object.schema_query,
             "evidence": queries_object.knowledge_query,
-            "value": queries_object.value_query
+            "value": queries_object.value_query,
+            "example": queries_object.example_query
         }
     }
 
@@ -160,6 +217,8 @@ def retrieve_schema(state: AgentState):
             res_schema.append(doc_content)
     
     final_schema = "\n---\n".join(list(set(res_schema)))
+
+    print("SCHEMA: \n", final_schema)
     
     return {"db_results": [final_schema]}
 
@@ -168,20 +227,33 @@ def retrieve_schema(state: AgentState):
 
 def retrieve_examples(state: AgentState):
     """
-    Node 2: Execute the queries against the 4 Vector Databases.
+    Node: Execute retrieval for Few-Shot SQL examples.
+    Iterates through example_query list to find relevant SQL patterns.
     """
     queries = state['vect_queries']
-    print(f"  [INFO] Retrieving Examples   ")
- 
-    # Retrieve SQL Examples
-    res_examples = coll_examples.query(query_texts=[queries['example']], n_results=3)
-    examples_txt = ""
-    if res_examples['metadatas']:
-        for meta, qt in zip(res_examples['metadatas'][0], res_examples['documents'][0]):
-            examples_txt += f"Question: {qt}\nSQL: {meta['query']}\n---\n"
+    print(f"  [INFO] Retrieving Examples...")
 
+    search_terms = queries.get("example", state['question'])
+    if isinstance(search_terms, list):
+        search_term = search_terms[0]
+    else:
+        search_term = search_terms
+
+    res_examples = coll_examples.query(query_texts=[search_term], n_results=2)
     
-    print("Examples: ", examples_txt)
+    examples_list = []
+    if res_examples['metadatas'] and res_examples['metadatas'][0]:
+        for meta, doc_text in zip(res_examples['metadatas'][0], res_examples['documents'][0]):
+            sql_code = meta.get('query', 'No SQL found')
+            examples_list.append(f"Question: {doc_text}\nSQL: {sql_code}")
+
+    examples_txt = "\n---\n".join(examples_list)
+    
+    if not examples_txt:
+        examples_txt = "No relevant SQL examples found."
+
+    print(f"Examples retrieved ({len(examples_list)} snippets found)")
+
     return {"db_results": [examples_txt]}
 
 # sql_example = retrieve_examples(vect_queries)
@@ -200,7 +272,7 @@ def retrieve_evidence(state: AgentState):
     unique_docs = set()
     
     for term in search_terms:
-        res_evidence = coll_evidence.query(query_texts=[term], n_results=2)
+        res_evidence = coll_evidence.query(query_texts=[term], n_results=4)
         
         if res_evidence['documents'] and res_evidence['documents'][0]:
             for doc in res_evidence['documents'][0]:
@@ -229,7 +301,7 @@ def retrieve_values(state: AgentState):
     unique_value_mappings = set()
     
     for term in search_terms:
-        res_values = coll_values.query(query_texts=[term], n_results=5)
+        res_values = coll_values.query(query_texts=[term], n_results=6)
 
         if res_values.get('metadatas') and res_values['metadatas'][0]:
             for meta in res_values['metadatas'][0]:
@@ -270,12 +342,15 @@ def generate_sql(state: AgentState):
     1. Write a valid SQLite query to answer the question.
     2. Use the provided context to identify correct tables, columns, and exact values.
     3. Return ONLY the SQL query. No markdown formatting, no explanations.
+    4. Use valid filters and ensure that the values applied in the filters are correct by verifying them against the provided context.
 
     Find the right KPI to use to find result and use the right filters 
     """
     
     response = llm.invoke([prompt])
     cleaned_sql = response.content.replace("```sql", "").replace("```", "").strip()
+
+    print("Generated SQL: ", cleaned_sql)
     
     return {"sql_candidate": cleaned_sql}
 
@@ -357,9 +432,12 @@ def semantic_checker(state: AgentState):
     current_sql = state["sql_candidate"]
     original_question = state["question"]
     
+    
     structured_llm = qwen.with_structured_output(SemanticCheckResult)
+    
+    full_context = "\n\n".join(state['db_results'])
   
-    system_prompt = """
+    system_prompt = f"""
     You are a Senior SQL Analyst specializing in Telecom data auditing. 
     Your role is to perform a rigorous logical audit on generated SQL queries.
 
@@ -373,21 +451,21 @@ def semantic_checker(state: AgentState):
     - Verify the usage of the correct KPI name.
     - Distinguish between a 'Segment' (filtering a group) and a 'Split' (categorizing the output).
     5. Result Validation: ensure the result aligned with user question (should the query use the 'valeur_d1' column ?).
+    6. Filters Validation: Ensure that the values applied in the filters (WHERE clause) are correct by verifying them against the provided context, and matching the appropriate data types
 
     CONSTRAINTS:
     - Do not invent column names or values. Use ONLY the provided Context (Schema, Evidence, and Values).
     - If the query is logically sound, return it as is.
     - If any logic is flawed, provide the corrected version in the 'corrected_sql' field.
+    
+    USE THE CONTEXT BELOW (Schema, Examples, Values, and Evidence):
+    {full_context}
     """
 
-    full_context = "\n\n".join(state['db_results'])
     
     user_prompt = f"""
     User Question: "{original_question}"
     Candidate SQL: "{current_sql}"
-
-    USEFUL CONTEXT (Schema, Examples, Values, and Evidence):
-    {full_context}
     
     Evaluate if the SQL answers the question accurately.
     """
@@ -483,13 +561,13 @@ workflow.add_edge(START, "generate_vect_db_query")
 
 # Fan-out (One to Many)
 workflow.add_edge("generate_vect_db_query", "schema_db")
-# workflow.add_edge("generate_vect_db_query", "example_db")
+workflow.add_edge("generate_vect_db_query", "example_db")
 workflow.add_edge("generate_vect_db_query", "evidence_db")
 workflow.add_edge("generate_vect_db_query", "cell_value_db")
 
 # Fan-in (Many to One)
 workflow.add_edge("schema_db", "generate_query")
-# workflow.add_edge("example_db", "generate_query")
+workflow.add_edge("example_db", "generate_query")
 workflow.add_edge("evidence_db", "generate_query")
 workflow.add_edge("cell_value_db", "generate_query")
 workflow.add_edge("generate_query", "syntax_checker")
@@ -519,7 +597,7 @@ graph = workflow.compile()
 if __name__ == "__main__":
     config = {"configurable": {"thread_id": "1"}}
 
-    result = graph.invoke({"question": "what is the number of new customer at Jan 2026 for home offer ADSL?"}, config)
+    result = graph.invoke({"question": "What is the total number of new B2B customers at the year of 2025?"}, config)
 
     print("SQL: ", result["sql_candidate"])
     print(f"SQL Result {result['query_result']}")

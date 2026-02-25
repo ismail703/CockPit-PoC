@@ -10,12 +10,12 @@
             },
             {
                 "column_name": "id_day",
-                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "description": "Day of the month (numeric value from 1 to 31)",
                 "datatype": "int"
             },
             {
                 "column_name": "id_week",
-                "description": "Day of the month (numeric value from 1 to 31)",
+                "description": "Track data by its specific week of the year",
                 "datatype": "int"
             },
             {
@@ -35,12 +35,12 @@
             },
             {
                 "column_name": "segment",
-                "description": "The Segment column defines the broad category or profile of the customer",
+                "description": "The Segment column identifies the specific business dimension or structural level used to filter the KPI calculation.",
                 "datatype": "string"
             },
             {
                 "column_name": "split",
-                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "description": "The Split column acts as a dynamic grouping dimension that further divides a Segment into sub-levels, with its categorical values varying based on the specific KPI being measured.",
                 "datatype": "string"
             },
             {
@@ -61,12 +61,12 @@
             },
             {
                 "column_name": "id_day",
-                "description": "Month extracted from the date (numeric value from 1 to 12)",
+                "description": "Day of the month (numeric value from 1 to 31)",
                 "datatype": "int"
             },
             {
                 "column_name": "id_week",
-                "description": "Day of the month (numeric value from 1 to 31)",
+                "description": "Track data by its specific week of the year",
                 "datatype": "int"
             },
             {
@@ -86,12 +86,12 @@
             },
             {
                 "column_name": "segment",
-                "description": "The Segment column defines the broad category or profile of the customer",
+                "description": "The Segment column identifies the specific business dimension or structural level used to filter the KPI calculation.",
                 "datatype": "string"
             },
             {
                 "column_name": "split",
-                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "description": "The Split column acts as a dynamic grouping dimension that further divides a Segment into sub-levels, with its categorical values varying based on the specific KPI being measured.",
                 "datatype": "string"
             },
             {
@@ -117,7 +117,7 @@
             },
             {
                 "column_name": "id_week",
-                "description": "Day of the month (numeric value from 1 to 31)",
+                "description": "Track data by its specific week of the year",
                 "datatype": "int"
             },
             {
@@ -137,12 +137,12 @@
             },
             {
                 "column_name": "segment",
-                "description": "The Segment column defines the broad category or profile of the customer",
+                "description": "The Segment column identifies the specific business dimension or structural level used to filter the KPI calculation.",
                 "datatype": "string"
             },
             {
                 "column_name": "split",
-                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "description": "The Split column acts as a dynamic grouping dimension that further divides a Segment into sub-levels, with its categorical values varying based on the specific KPI being measured.",
                 "datatype": "string"
             },
             {
@@ -168,7 +168,7 @@
             },
             {
                 "column_name": "id_week",
-                "description": "Day of the month (numeric value from 1 to 31)",
+                "description": "Track data by its specific week of the year",
                 "datatype": "int"
             },
             {
@@ -188,12 +188,12 @@
             },
             {
                 "column_name": "segment",
-                "description": "The Segment column defines the broad category or profile of the customer",
+                "description": "The Segment column identifies the specific business dimension or structural level used to filter the KPI calculation.",
                 "datatype": "string"
             },
             {
                 "column_name": "split",
-                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "description": "The Split column acts as a dynamic grouping dimension that further divides a Segment into sub-levels, with its categorical values varying based on the specific KPI being measured.",
                 "datatype": "string"
             },
             {
@@ -219,7 +219,7 @@
             },
             {
                 "column_name": "id_week",
-                "description": "Day of the month (numeric value from 1 to 31)",
+                "description": "Track data by its specific week of the year",
                 "datatype": "int"
             },
             {
@@ -239,12 +239,12 @@
             },
             {
                 "column_name": "segment",
-                "description": "The Segment column defines the broad category or profile of the customer",
+                "description": "The Segment column identifies the specific business dimension or structural level used to filter the KPI calculation.",
                 "datatype": "string"
             },
             {
                 "column_name": "split",
-                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "description": "The Split column acts as a dynamic grouping dimension that further divides a Segment into sub-levels, with its categorical values varying based on the specific KPI being measured.",
                 "datatype": "string"
             },
             {
@@ -270,7 +270,7 @@
             },
             {
                 "column_name": "id_week",
-                "description": "Day of the month (numeric value from 1 to 31)",
+                "description": "Track data by its specific week of the year",
                 "datatype": "int"
             },
             {
@@ -290,12 +290,12 @@
             },
             {
                 "column_name": "segment",
-                "description": "The Segment column defines the broad category or profile of the customer",
+                "description": "The Segment column identifies the specific business dimension or structural level used to filter the KPI calculation.",
                 "datatype": "string"
             },
             {
                 "column_name": "split",
-                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "description": "The Split column acts as a dynamic grouping dimension that further divides a Segment into sub-levels, with its categorical values varying based on the specific KPI being measured.",
                 "datatype": "string"
             },
             {
@@ -321,7 +321,7 @@
             },
             {
                 "column_name": "id_week",
-                "description": "Day of the month (numeric value from 1 to 31)",
+                "description": "Track data by its specific week of the year",
                 "datatype": "int"
             },
             {
@@ -341,12 +341,12 @@
             },
             {
                 "column_name": "segment",
-                "description": "The Segment column defines the broad category or profile of the customer",
+                "description": "The Segment column identifies the specific business dimension or structural level used to filter the KPI calculation.",
                 "datatype": "string"
             },
             {
                 "column_name": "split",
-                "description": "The Split column is a more granular sub-division. It provides technical, product-specific, or channel-related details about how the service is delivered or sold",
+                "description": "The Split column acts as a dynamic grouping dimension that further divides a Segment into sub-levels, with its categorical values varying based on the specific KPI being measured.",
                 "datatype": "string"
             },
             {

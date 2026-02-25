@@ -1,0 +1,22 @@
+[
+    {
+        "question": "What is the total number of new customer for mobile postpaid subscription ?",
+        "sql": "SELECT id_year, sum(valeur_d1) FROM bda_activations where segment in ('WIN','FLEXI','B2C POSTPAID') GROUP BY 1;"
+    },
+    {
+        "question": "Give me the total amount for each recharge type",
+        "sql": "SELECT id_year, split, sum(valeur_d1) FROM bda_recharge where kpi ='RECHARGE PAR TYPE';"
+    },
+    {
+        "question": "give me the total encaissement grouped by segment",
+        "sql": "SELECT id_year, segment, sum(valeur_d1) FROM bda_encaissement where kpi ='ENCAISSEMENT' GROUP BY 1,2;"
+    },
+    {
+        "question": "What is the FTTH propre connection delay for February 2026?",
+        "sql": "SELECT id_year, kpi, sum(valeur_d1) FROM bda_ftth_delai_raccordement where id_year =2026 and id_month =02 and kpi ='DELAIS RACCORDEMENTS PROPRE';"
+    },
+    {
+        "question": "What is the total number of FTTH complaints (reclamation) in 2026?",
+        "sql": "SELECT id_month, kpi, sum(valeur_d1) FROM bda_ftth_reclamations WHERE id_year =2026 and kpi ='RECLAMATIONS FTTH' GROUP BY 1,2;"
+    }
+]
