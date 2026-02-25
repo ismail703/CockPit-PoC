@@ -4,6 +4,8 @@
   "WHOLESALE: Refers to telecom operators or partners purchasing services or capacity.",
   "GAS (Gross Activations):the number of newly activated lines/subscriptions during a period. Activation logic may vary depending on context (billing start date, first recharge, first network event, CRM activation date).",
   "FTTH (Fiber To The Home): Fixed high-speed internet service delivered through fiber optic infrastructure directly to the customer’s premises.",
+  "FTTH ACQUISITION: New FTTH installation for a customer who did not previously have an active fixed fiber service.",
+  "FTTH MIGRATION: Upgrade of an existing customer from a legacy fixed technology (such as ADSL or IDAR 4G/5G) to FTTH.",
   "ADSL (Asymmetric Digital Subscriber Line): Fixed broadband internet service delivered through copper telephone lines.",
   "Mobile: Mobile telecommunications service provided through cellular network infrastructure, including voice, SMS, and mobile data subscriptions.",
   "Prepaid: Mobile service model where customers pay in advance before consuming services (voice, SMS, data). Usage is deducted from the available balance through recharges or top-ups.",
@@ -80,6 +82,4 @@
   "CHURN: Churn is the metric that tracks when a customer '\"leaves\" the operator.",
   "In the postpaid segment, churn is recognized at the point of contract closure, encompassing both customer-led attrition and credit-related deactivations.",
   "Prepaid churn is a behavioral metric governed by ANRT, which defines an active customer as one who generates revenue (call, SMS, data, or recharge) within a 90-day window. If a SIM card remains inactive for more than three months, it is legally classified as \"churned\". This periodic purging often leads to sharp YTD subscriber dips, representing the removal of \"ghost\" lines rather than a real-time loss of active users."
-
 ]
-
