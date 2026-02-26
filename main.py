@@ -180,10 +180,10 @@ def generate_vect_db_query(state: AgentState):
         HumanMessage(content=state['question'])
     ])
     
-    print("schema: ", queries_object.schema_query)
-    print("evidence: ", queries_object.knowledge_query)
-    print("value: ", queries_object.value_query)
-    print("example: ", queries_object.example_query)
+    print("   schema: ", queries_object.schema_query)
+    print("   evidence: ", queries_object.knowledge_query)
+    print("   value: ", queries_object.value_query)
+    print("   example: ", queries_object.example_query)
 
     return {
         "vect_queries": {
@@ -253,6 +253,7 @@ def retrieve_examples(state: AgentState):
         examples_txt = "No relevant SQL examples found."
 
     print(f"Examples retrieved ({len(examples_list)} snippets found)")
+    print(f"EXAMPLES: \n  {examples_list}")
 
     return {"db_results": [examples_txt]}
 
@@ -281,6 +282,7 @@ def retrieve_evidence(state: AgentState):
     evidence_txt = "\n\n".join(list(unique_docs))
     
     print(f"Evidence retrieved ({len(unique_docs)} unique snippets found)")
+    print("EVIDENCE: \n", evidence_txt)
 
     return {"db_results": [evidence_txt]}
 
@@ -301,7 +303,7 @@ def retrieve_values(state: AgentState):
     unique_value_mappings = set()
     
     for term in search_terms:
-        res_values = coll_values.query(query_texts=[term], n_results=6)
+        res_values = coll_values.query(query_texts=[term], n_results=7)
 
         if res_values.get('metadatas') and res_values['metadatas'][0]:
             for meta in res_values['metadatas'][0]:
@@ -407,7 +409,8 @@ def syntax_checker(state: AgentState):
       
         response = llm.invoke(messages)
         fixed_sql = response.content.replace("```sql", "").replace("```", "").strip()
-     
+        print("Fixed SQL: ", fixed_sql)
+
         return {
             "sql_candidate": fixed_sql,
             "is_sql_modified": True,
